@@ -1,5 +1,7 @@
 import random
+import time
 import Utils as utils
+import SolutionGenerator as tester
 
 class Grid:
 
@@ -62,7 +64,7 @@ def create_grid(size_x = 5, size_y = 7, max_region_size = 5):
 
 
 def populate_grid(grid, cell, region):
-    print(cell)
+    #print(cell)
     grid.set_cell_region(cell, region.number)
 
     if grid.is_full():
@@ -73,7 +75,7 @@ def populate_grid(grid, cell, region):
 
     if next[1]:
         next_region = grid.new_region()
-        print(next_region.number)
+        #print(next_region.number)
     else:
         next_region = region
 
@@ -117,9 +119,31 @@ def get_random_cell(grid):
     #print(cell)
     return cell
 
+def test_generator(nb_attempts = 100):
+    start = time.time()
+    ok_count = 0
+    regions = []
+
+    for i in range(nb_attempts):
+        res = create_grid()
+        seed = random.randrange(10000)
+        regions.clear()
+
+        for region in res.regions:
+            regions.append(region.cells)
+
+        print(regions, seed)
+        test = tester.create_number_grid(regions, res.get_sixe_x(), res.get_sixe_y(), seed)
+        if test != False:
+            ok_count += 1
+
+        print(ok_count, i)
+
+
+    print("Valid grids : " + str(ok_count) + "/" + str(nb_attempts))
+    print("Done in " + str(time.time() - start) + " seconds")
+
 
 
 if __name__ == '__main__':
-    res = create_grid()
-
-    print(res.mat)
+    test_generator()
