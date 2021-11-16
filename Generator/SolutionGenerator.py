@@ -2,14 +2,14 @@ import random
 import time
 import operator
 
-def ChooseNumber(cell):
+def choose_number(cell):
     #print(cell)
     if cell is False:
         #print("isok")
         return True
 
-    potential_nb = GetAllowedNumbers(cell)
-    next = GetNextCell()
+    potential_nb = get_allowed_numbers(cell)
+    next = get_next_cell()
 
 
     while len(potential_nb) > 0:
@@ -20,7 +20,7 @@ def ChooseNumber(cell):
         #print(mat)
 
         #print(str(cell) + " done: " + str(choice))
-        done = ChooseNumber(next)
+        done = choose_number(next)
 
         if done:
             return True
@@ -28,11 +28,11 @@ def ChooseNumber(cell):
     #print("ah shit stop : " + str(cell))
     mat[cell[1]][cell[0]] = -1
     #print(mat)
-    RevertCell()
+    revert_cell()
     return False
 
-def GetAllowedNumbers(cell):
-    region = GetRegion()
+def get_allowed_numbers(cell):
+    region = get_region()
     potential_nb = set([i for i in range(1, len(region) + 1)])
     region.remove(cell)
     affecting_cells = set(region)
@@ -63,25 +63,25 @@ def GetAllowedNumbers(cell):
 
     return list(potential_nb)
 
-def GetRegion():
-    return list(regions[cellIndex[0]])
+def get_region():
+    return list(regions[cell_index[0]])
 
-def GetNextCell():
-    previous_cell_index.append(list(cellIndex))
-    if cellIndex[1] + 1 >= len(regions[cellIndex[0]]):
-        if cellIndex[0] + 1 >= len(regions):
+def get_next_cell():
+    previous_cell_index.append(list(cell_index))
+    if cell_index[1] + 1 >= len(regions[cell_index[0]]):
+        if cell_index[0] + 1 >= len(regions):
             return False
 
-        cellIndex[0] += 1
-        cellIndex[1] = 0
+        cell_index[0] += 1
+        cell_index[1] = 0
     else:
-        cellIndex[1] += 1
+        cell_index[1] += 1
 
-    return regions[cellIndex[0]][cellIndex[1]]
+    return regions[cell_index[0]][cell_index[1]]
 
-def RevertCell():
-    global cellIndex
-    cellIndex = previous_cell_index.pop()
+def revert_cell():
+    global cell_index
+    cell_index = previous_cell_index.pop()
 
 def sort_regions(r):
     lst = []
@@ -114,19 +114,17 @@ def create_number_grid(r = None, size_x = 7, size_y = 5, random_seed = None):
         [(0, 1), (1, 1), (0, 2), (1, 2)]
     ]'''
 
-    global cellIndex
-    cellIndex = [0, -1]
+    global cell_index
+    cell_index = [0, -1]
 
     global previous_cell_index
     previous_cell_index = []
 
     global mat
-    mat = [[-1 for _ in range(size_x)] for __ in range(size_y)]
-    #mat[0][4] = 2
-    #mat[3][3] = 1
+    mat = [[-1 for i in range(size_x)] for j in range(size_y)]
 
     random.seed(random_seed)
-    if ChooseNumber(GetNextCell()):
+    if choose_number(get_next_cell()):
         return mat
 
     return False
