@@ -95,7 +95,7 @@ def create_grid_numbers(r = None, size_x = 7, size_y = 5):
             [(5, 3), (6, 3), (4, 4), (5, 4), (6, 4)]
         ]
     else:
-        regions = list(r)
+        regions = sorted(list(r), key=len)
 
     # TODO: case prioritaire ?
     '''regions = [
@@ -119,6 +119,6 @@ def create_grid_numbers(r = None, size_x = 7, size_y = 5):
 
 
 if __name__ == '__main__':
-    create_grid_numbers();
+    create_grid_numbers()
 
     print(mat)
