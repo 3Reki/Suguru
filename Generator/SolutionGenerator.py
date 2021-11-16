@@ -1,6 +1,9 @@
-from random import randint
+import random
+import time
+import operator
 
 def ChooseNumber(cell):
+    #print(cell)
     if cell is False:
         #print("isok")
         return True
@@ -10,13 +13,13 @@ def ChooseNumber(cell):
 
 
     while len(potential_nb) > 0:
-        choice_index = randint(0, len(potential_nb) - 1)
+        choice_index = random.randint(0, len(potential_nb) - 1)
         choice = potential_nb.pop(choice_index)
 
         mat[cell[1]][cell[0]] = choice
         #print(mat)
 
-        #print(str(cell) + " done")
+        #print(str(cell) + " done: " + str(choice))
         done = ChooseNumber(next)
 
         if done:
@@ -80,7 +83,14 @@ def RevertCell():
     global cellIndex
     cellIndex = previous_cell_index.pop()
 
-def create_grid_numbers(r = None, size_x = 7, size_y = 5):
+def sort_regions(r):
+    lst = []
+    for region in r:
+        lst.append(sorted(region, key=operator.itemgetter(1, 0)))
+
+    return sorted(lst, key=lambda r: (len(r), r[0][1], r[0][0]))
+
+def create_number_grid(r = None, size_x = 7, size_y = 5, random_seed = None):
     global regions
     if r is None:
         regions = [
@@ -95,7 +105,7 @@ def create_grid_numbers(r = None, size_x = 7, size_y = 5):
             [(5, 3), (6, 3), (4, 4), (5, 4), (6, 4)]
         ]
     else:
-        regions = sorted(list(r), key=len)
+        regions = sort_regions(r)
 
     # TODO: case prioritaire ?
     '''regions = [
@@ -111,14 +121,19 @@ def create_grid_numbers(r = None, size_x = 7, size_y = 5):
     previous_cell_index = []
 
     global mat
-    mat = [[-1 for _ in range(7)] for __ in range(5)]
+    mat = [[-1 for _ in range(size_x)] for __ in range(size_y)]
     #mat[0][4] = 2
     #mat[3][3] = 1
 
-    ChooseNumber(GetNextCell())
+    random.seed(random_seed)
+    if ChooseNumber(GetNextCell()):
+        return mat
+
+    return False
 
 
 if __name__ == '__main__':
-    create_grid_numbers()
+    start = time.time()
+    create_number_grid()
 
-    print(mat)
+    print("Done in " + str(time.time() - start) + " seconds")
