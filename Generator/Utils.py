@@ -26,3 +26,7 @@ def adjacent_cells(mat, cell):
             cells.append((x, y))
 
     return cells
+
+def print_mat(mat):
+    for lst in mat:
+        print(lst)
