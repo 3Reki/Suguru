@@ -132,8 +132,14 @@ def test_generator(nb_attempts = 100):
         for region in res.regions:
             regions.append(region.cells)
 
-        print(regions, seed)
+        sg_start = time.time()
         test = tester.create_number_grid(regions, res.get_sixe_x(), res.get_sixe_y(), seed)
+
+        sg_length = time.time() - sg_start
+        if sg_length > 10:
+            print("Grid took " + str(sg_length) + "s to complete, result=" + str(test != False))
+            print(regions, seed)
+
         if test != False:
             ok_count += 1
 
