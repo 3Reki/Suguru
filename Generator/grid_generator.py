@@ -2,7 +2,6 @@ import sys
 import random
 import time
 import utils
-import SolutionGenerator as tester
 
 class Grid:
 
@@ -60,10 +59,6 @@ class Region:
         self.cell_count += 1
 
 
-"""
-# TODO: Chance de stopper region (1/12, 1/9, 1/6, 1/4), privilégier case isolées
-et repartir des cases isolées, check qu'aucune case n'est entourée
-"""
 def create_grid(size_x = 5, size_y = 7, max_region_size = 5):
     grid = Grid(size_x, size_y, max_region_size)
 
@@ -98,7 +93,7 @@ def populate_grid(grid, cell, region, region_neighbors, r_min_size):
             return False
 
         next_region = grid.new_region()
-        region_neighbors = set([(x, y) for x in range(grid.get_sixe_x()) for y in range(grid.get_sixe_y())]) #set(utils.adjacent_diagonal_cells(grid.mat, cell)) # dégage
+        region_neighbors = set([(x, y) for x in range(grid.get_sixe_x()) for y in range(grid.get_sixe_y())])
         r_min_size = 1
         #print(next_region.number)
     else:
@@ -113,6 +108,7 @@ Returns a cell and True if a change of region must be done
 def get_next_cell(grid, cell, region):
     if region.cell_count == grid.max_region_size:
         return (get_random_cell(grid), True)
+
     poss_cells = utils.adjacent_cells(grid.mat, cell)
 
     for i in range(len(poss_cells) - 1, -1, -1):
@@ -186,43 +182,7 @@ def is_region_valid(grid, region, region_neighbors, r_min_size):
     return True
 
 
-def test_generator(nb_attempts = 100):
-    start = time.time()
-    ok_count = 0
-    regions = []
-
-    for i in range(nb_attempts):
-        res = create_grid()
-
-        #print("Grid " + str(i + 1) + " ok")
-        seed = random.randrange(10000)
-        regions.clear()
-
-        for region in res.regions:
-            regions.append(region.cells)
-
-        sg_start = time.time()
-        test = tester.create_number_grid(regions, res.get_sixe_x(), res.get_sixe_y(), seed, 10000)
-
-        sg_length = time.time() - sg_start
-        if sg_length > 10:
-            print("Grid took too long") #+ str(sg_length) + "s to complete, result=" + str(test != False))
-            #print(regions, seed)
-
-        if test != False:
-            ok_count += 1
-
-        print(ok_count, i)
-
-
-    print("Valid grids : " + str(ok_count) + "/" + str(nb_attempts))
-    print("Done in " + str(time.time() - start) + " seconds")
-
-
 
 if __name__ == '__main__':
-    if len(sys.argv) == 1:
-        res = create_grid()
-        utils.print_mat(res.mat)
-    else:
-        test_generator(int(sys.argv[1]))
+    res = create_grid()
+    utils.print_mat(res.mat)
