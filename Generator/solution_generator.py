@@ -29,11 +29,23 @@ class Grid:
     def get_region(self):
         return list(self.regions[self.cell_index[0]])
 
-def choose_number(grid, cell):
+class Timer:
+
+    def __init__(self, time_limit):
+        self.time_limit = time_limit
+        self.start = time.time()
+
+    def is_over(self):
+        return False if self.time_limit is None else time.time() - self.start >= self.time_limit
+
+def choose_number(grid, cell, timer):
     #print(cell)
     if cell is False:
         #print("isok")
         return True
+
+    if timer.is_over():
+        return False
 
     potential_nb = get_allowed_numbers(grid, cell)
     next = grid.get_next_cell()
@@ -47,8 +59,11 @@ def choose_number(grid, cell):
         #print(mat)
 
         #print(str(cell) + " done: " + str(choice))
-        done = choose_number(grid, next)
+        done = choose_number(grid, next, timer)
 
+        if timer.is_over():
+            return False
+            
         if done:
             return True
 
@@ -97,12 +112,12 @@ def sort_regions(r):
 
     return sorted(lst, key=lambda r: (len(r), r[0][1], r[0][0]))
 
-def create_number_grid(r, size_x, size_y, random_seed = None):
+def create_number_grid(r, size_x, size_y, random_seed = None, time_limit = None):
     # TODO: case prioritaire ?
     grid = Grid(r, size_x, size_y)
 
     random.seed(random_seed)
-    if choose_number(grid, grid.get_next_cell()):
+    if choose_number(grid, grid.get_next_cell(), Timer(time_limit)):
         return grid.mat
 
     return False
