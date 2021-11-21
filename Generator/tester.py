@@ -7,9 +7,10 @@ import grid_generator as grid_gen
 import solution_generator as soln_gen
 
 class Tester:
-
-    """
-    def t_grid_validity_and_time(nb_attempts = 100):
+    @staticmethod
+    def t_grid_validity(nb_attempts = 300, max_time = 10):
+        nb_attempts = int(nb_attempts)
+        max_time = float(max_time)
         start = time.time()
         ok_count = 0
         regions = []
@@ -25,24 +26,27 @@ class Tester:
                 regions.append(region.cells)
 
             sg_start = time.time()
-            test = soln_gen.create_number_grid(regions, res.get_sixe_x(), res.get_sixe_y(), seed, 10000)
-
+            test = soln_gen.create_number_grid(regions, res.get_sixe_x(), res.get_sixe_y(), seed, max_time)
             sg_length = time.time() - sg_start
-            if sg_length > 10:
+            
+            if sg_length > max_time:
                 print("Grid took too long") #+ str(sg_length) + "s to complete, result=" + str(test != False))
                 #print(regions, seed)
 
             if test != False:
                 ok_count += 1
 
-            print(ok_count, i)
+            print(ok_count, i+1)
 
 
         print("Valid grids : " + str(ok_count) + "/" + str(nb_attempts))
         print("Done in " + str(time.time() - start) + " seconds")
-    """
 
-    def t_long_soln_gen(self, nb_grid = 10, min_time = 10, max_time = 60):
+    @staticmethod
+    def t_long_soln_gen(nb_grid = 10, min_time = 10, max_time = 60):
+        nb_grid = int(nb_grid)
+        min_time = float(min_time)
+        max_time = float(max_time)
         regions = []
         init_size_x, init_size_y, init_max_region_size = 5, 7, 5
         nb_tried = 0
@@ -74,4 +78,4 @@ class Tester:
 
 
 if __name__ == '__main__':
-    getattr(Tester, sys.argv[1])(Tester())
+    getattr(Tester, sys.argv[1])(*sys.argv[2:])
