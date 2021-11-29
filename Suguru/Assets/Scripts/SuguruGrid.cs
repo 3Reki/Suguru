@@ -1,14 +1,15 @@
 using System;
+using Suguru.Utils;
 using TMPro;
 using UnityEngine;
 
 public class SuguruGrid
 {
-    private int width;
-    private int height;
-    private float cellSize;
-    private Vector3 originPosition;
-    private int[,] gridArray;
+    private readonly Cell[,] gridArray;
+    private readonly Vector3 originPosition;
+    private readonly float cellSize;
+    private readonly int width;
+    private readonly int height;
 
     public SuguruGrid(int width, int height, float cellSize, Vector3 originPosition, GameObject background, Material mat) {
         this.width = width;
@@ -16,40 +17,39 @@ public class SuguruGrid
         this.cellSize = cellSize;
         this.originPosition = originPosition;
 
-        gridArray = new int[width, height];
+        gridArray = new Cell[width, height];
         ShowGrid(background, mat);
     }
 
-    public void ShowGrid(GameObject background, Material mat)
+    private void ShowGrid(GameObject background, Material mat)
     {
-        var debugTextArray = new TextMeshPro[width, height];
+        TextMeshPro textMesh;
         var numbersGO = new GameObject("Numbers");
         var linesGO = new GameObject("Lines");
-        var linesTransform = linesGO.transform;
+        Transform linesTransform = linesGO.transform;
 
         for (var i = 0; i < gridArray.GetLength(0); i++) {
             for (var j = 0; j < gridArray.GetLength(1); j++) {
                 //debugTextArray[x, y] = UtilsClass.CreateWorldText(gridArray[x, y].ToString(), null, GetWorldPosition(x, y) + new Vector3(cellSize, cellSize) * .5f, 30, Color.white, TextAnchor.MiddleCenter);
-                debugTextArray[i, j] = Utils.CreateWorldText(gridArray[i, j].ToString(), numbersGO.transform, 
-                    GetWorldPosition(i, j) + new Vector3(cellSize, cellSize) * .5f, new Vector2(cellSize, cellSize), 10, 
-                    Color.black, TextAnchor.MiddleCenter, TextAlignmentOptions.Center);
-                Utils.DrawLine(GetWorldPosition(i, j), GetWorldPosition(i, j + 1), Color.black, mat, linesTransform);
-                Utils.DrawLine(GetWorldPosition(i, j), GetWorldPosition(i + 1, j), Color.black, mat, linesTransform);
+                textMesh = UtilsClass.CreateWorldText("", numbersGO.transform, 
+                    GetWorldPosition(i, j) + new Vector3(cellSize, cellSize) * .5f, 
+                    new Vector2(cellSize, cellSize), 10,  Color.black, TextAnchor.MiddleCenter, TextAlignmentOptions.Center);
+                gridArray[i, j] = new Cell(textMesh, 10);
+                UtilsClass.DrawLine(GetWorldPosition(i, j), GetWorldPosition(i, j + 1), Color.black, mat, linesTransform);
+                UtilsClass.DrawLine(GetWorldPosition(i, j), GetWorldPosition(i + 1, j), Color.black, mat, linesTransform);
             }
         }
-        Utils.DrawLine(GetWorldPosition(0, height), GetWorldPosition(width, height), Color.black, mat, linesTransform);
-        Utils.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height), Color.black, mat, linesTransform);
+        UtilsClass.DrawLine(GetWorldPosition(0, height), GetWorldPosition(width, height), Color.black, mat, linesTransform);
+        UtilsClass.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height), Color.black, mat, linesTransform);
 
         /*OnGridValueChanged += (object sender, Grid.OnGridValueChangedEventArgs eventArgs) => {
             debugTextArray[eventArgs.x, eventArgs.y].text = gridArray[eventArgs.x, eventArgs.y].ToString();
         };*/
 
-        var bTransform = background.transform;
+        Transform bTransform = background.transform;
         bTransform.localScale = new Vector3(width, height) * cellSize;
         bTransform.position = originPosition + bTransform.localScale/2;
     }
-    
-    
 
     public int GetWidth() {
         return width;
@@ -78,7 +78,7 @@ public class SuguruGrid
     {
         try
         {
-            gridArray[x, y] = value;
+            gridArray[x, y].SetValue(value);
         }
         catch (ArgumentOutOfRangeException e)
         {
@@ -90,12 +90,19 @@ public class SuguruGrid
 
     public void SetValue(Vector3 worldPosition, int value) {
         Vector2Int index = GetXY(worldPosition);
-        SetValue(index.x, index.y, value);
+        int x = index.x;
+        int y = index.y;
+        
+        if (x >= 0 && y >= 0 && x < gridArray.GetLength(0) && y < gridArray.GetLength(1))
+        {
+            SetValue(index.x, index.y, value);
+        }
+        
     }
 
     public int GetValue(int x, int y) {
         try {
-            return gridArray[x, y];
+            return gridArray[x, y].GetValue();
         }
         catch (ArgumentOutOfRangeException e)
         {
