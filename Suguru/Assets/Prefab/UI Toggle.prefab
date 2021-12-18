@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7857432198118589430}
   - component: {fileID: 7857432198118589431}
   - component: {fileID: 7562148736728757848}
+  - component: {fileID: 7987235803910618794}
   m_Layer: 5
   m_Name: UI Toggle
   m_TagString: Untagged
@@ -123,8 +124,34 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7987235803910618794}
+        m_TargetAssemblyTypeName: ToggleOnOffHandler, Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 0
+--- !u!114 &7987235803910618794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7857432198118589426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce37827de3577c848b86e75132dfca35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manager: {fileID: 0}
+  toggle: {fileID: 7562148736728757848}
 --- !u!1 &7857432198281026362
 GameObject:
   m_ObjectHideFlags: 0

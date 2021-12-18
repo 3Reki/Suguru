@@ -407,15 +407,79 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 670431456100961655, guid: bcd5fd4774a04cf46a7471ed2d92d76a, type: 3}
+      propertyPath: manager
+      value: 
+      objectReference: {fileID: 1612185295}
+    - target: {fileID: 1110035377988044165, guid: bcd5fd4774a04cf46a7471ed2d92d76a, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnCandidateModeChange
+      objectReference: {fileID: 0}
+    - target: {fileID: 1110035377988044165, guid: bcd5fd4774a04cf46a7471ed2d92d76a, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ToggleOnOffHandler, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1110035377988044165, guid: bcd5fd4774a04cf46a7471ed2d92d76a, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2568255055340363259, guid: bcd5fd4774a04cf46a7471ed2d92d76a, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3076920459907241515, guid: bcd5fd4774a04cf46a7471ed2d92d76a, type: 3}
+      propertyPath: manager
+      value: 
+      objectReference: {fileID: 1612185295}
+    - target: {fileID: 3076920459942397691, guid: bcd5fd4774a04cf46a7471ed2d92d76a, type: 3}
+      propertyPath: manager
+      value: 
+      objectReference: {fileID: 1612185295}
+    - target: {fileID: 3076920460232447063, guid: bcd5fd4774a04cf46a7471ed2d92d76a, type: 3}
+      propertyPath: manager
+      value: 
+      objectReference: {fileID: 1612185295}
+    - target: {fileID: 3076920460320232359, guid: bcd5fd4774a04cf46a7471ed2d92d76a, type: 3}
+      propertyPath: manager
+      value: 
+      objectReference: {fileID: 1612185295}
+    - target: {fileID: 3076920460526018743, guid: bcd5fd4774a04cf46a7471ed2d92d76a, type: 3}
+      propertyPath: manager
+      value: 
+      objectReference: {fileID: 1612185295}
+    - target: {fileID: 3076920460761747625, guid: bcd5fd4774a04cf46a7471ed2d92d76a, type: 3}
+      propertyPath: manager
+      value: 
+      objectReference: {fileID: 1612185295}
+    - target: {fileID: 3076920461058644394, guid: bcd5fd4774a04cf46a7471ed2d92d76a, type: 3}
+      propertyPath: manager
+      value: 
+      objectReference: {fileID: 1612185295}
+    - target: {fileID: 3076920461283185169, guid: bcd5fd4774a04cf46a7471ed2d92d76a, type: 3}
+      propertyPath: manager
+      value: 
+      objectReference: {fileID: 1612185295}
     - target: {fileID: 4930094132396504960, guid: bcd5fd4774a04cf46a7471ed2d92d76a, type: 3}
       propertyPath: manager
       value: 
       objectReference: {fileID: 1612185295}
+    - target: {fileID: 4930094132458693918, guid: bcd5fd4774a04cf46a7471ed2d92d76a, type: 3}
+      propertyPath: m_text
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4930094132458693918, guid: bcd5fd4774a04cf46a7471ed2d92d76a, type: 3}
+      propertyPath: m_fontSize
+      value: 72
+      objectReference: {fileID: 0}
+    - target: {fileID: 4930094132458693918, guid: bcd5fd4774a04cf46a7471ed2d92d76a, type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 4930094132458693918, guid: bcd5fd4774a04cf46a7471ed2d92d76a, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4930094132606350701, guid: bcd5fd4774a04cf46a7471ed2d92d76a, type: 3}
-      propertyPath: manager
-      value: 
-      objectReference: {fileID: 1612185295}
-    - target: {fileID: 4930094132763999699, guid: bcd5fd4774a04cf46a7471ed2d92d76a, type: 3}
       propertyPath: manager
       value: 
       objectReference: {fileID: 1612185295}
@@ -423,6 +487,18 @@ PrefabInstance:
       propertyPath: manager
       value: 
       objectReference: {fileID: 1612185295}
+    - target: {fileID: 4930094132964255456, guid: bcd5fd4774a04cf46a7471ed2d92d76a, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 621347726}
+    - target: {fileID: 4930094132964255456, guid: bcd5fd4774a04cf46a7471ed2d92d76a, type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4930094132964255457, guid: bcd5fd4774a04cf46a7471ed2d92d76a, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4930094132964255459, guid: bcd5fd4774a04cf46a7471ed2d92d76a, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -457,6 +533,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4930094132964255459, guid: bcd5fd4774a04cf46a7471ed2d92d76a, type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4930094132964255459, guid: bcd5fd4774a04cf46a7471ed2d92d76a, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4930094132964255459, guid: bcd5fd4774a04cf46a7471ed2d92d76a, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4930094132964255459, guid: bcd5fd4774a04cf46a7471ed2d92d76a, type: 3}
+      propertyPath: m_LocalScale.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4930094132964255459, guid: bcd5fd4774a04cf46a7471ed2d92d76a, type: 3}
@@ -531,5 +619,12 @@ PrefabInstance:
       propertyPath: manager
       value: 
       objectReference: {fileID: 1612185295}
-    m_RemovedComponents: []
+    - target: {fileID: 5167984129143095436, guid: bcd5fd4774a04cf46a7471ed2d92d76a, type: 3}
+      propertyPath: manager
+      value: 
+      objectReference: {fileID: 1612185295}
+    m_RemovedComponents:
+    - {fileID: 4930094132763999699, guid: bcd5fd4774a04cf46a7471ed2d92d76a, type: 3}
+    - {fileID: 4930094132606350701, guid: bcd5fd4774a04cf46a7471ed2d92d76a, type: 3}
+    - {fileID: 4930094132956822599, guid: bcd5fd4774a04cf46a7471ed2d92d76a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: bcd5fd4774a04cf46a7471ed2d92d76a, type: 3}

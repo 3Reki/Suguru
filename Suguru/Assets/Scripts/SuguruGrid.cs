@@ -11,7 +11,8 @@ public class SuguruGrid
     private readonly int width;
     private readonly int height;
 
-    public SuguruGrid(int width, int height, float cellSize, Vector3 originPosition, GameObject background, Material mat) {
+    public SuguruGrid(int width, int height, float cellSize, Vector3 originPosition, GameObject background, Material mat)
+    {
         this.width = width;
         this.height = height;
         this.cellSize = cellSize;
@@ -20,6 +21,39 @@ public class SuguruGrid
         gridArray = new Cell[width, height];
         ShowGrid(background, mat);
     }
+    
+    public void SetValue(Vector3 worldPosition, int value)
+    {
+        Vector2Int index = GetXY(worldPosition);
+
+        if (IsValid(index))
+        {
+            SetValue(index, value);
+        }
+        
+    }
+
+    public void SetCandidate(Vector3 worldPosition, int value)
+    {
+        Vector2Int index = GetXY(worldPosition);
+
+        if (IsValid(index))
+        {
+            SetCandidate(index, value);
+        }
+    }
+    
+    public void Erase(Vector3 worldPosition, int value)
+    {
+        Vector2Int index = GetXY(worldPosition);
+
+        if (IsValid(index))
+        {
+            Erase(index.x, index.y);
+        }
+    }
+
+
 
     private void ShowGrid(GameObject background, Material mat)
     {
@@ -30,7 +64,6 @@ public class SuguruGrid
 
         for (var i = 0; i < gridArray.GetLength(0); i++) {
             for (var j = 0; j < gridArray.GetLength(1); j++) {
-                //debugTextArray[x, y] = UtilsClass.CreateWorldText(gridArray[x, y].ToString(), null, GetWorldPosition(x, y) + new Vector3(cellSize, cellSize) * .5f, 30, Color.white, TextAnchor.MiddleCenter);
                 textMesh = UtilsClass.CreateWorldText("", numbersGO.transform, 
                     GetWorldPosition(i, j) + new Vector3(cellSize, cellSize) * .5f, 
                     new Vector2(cellSize, cellSize), 10,  Color.black, TextAnchor.MiddleCenter, TextAlignmentOptions.Center);
@@ -42,67 +75,42 @@ public class SuguruGrid
         UtilsClass.DrawLine(GetWorldPosition(0, height), GetWorldPosition(width, height), Color.black, mat, linesTransform);
         UtilsClass.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height), Color.black, mat, linesTransform);
 
-        /*OnGridValueChanged += (object sender, Grid.OnGridValueChangedEventArgs eventArgs) => {
-            debugTextArray[eventArgs.x, eventArgs.y].text = gridArray[eventArgs.x, eventArgs.y].ToString();
-        };*/
-
         Transform bTransform = background.transform;
         bTransform.localScale = new Vector3(width, height) * cellSize;
         bTransform.position = originPosition + bTransform.localScale/2;
     }
 
-    public int GetWidth() {
-        return width;
-    }
-
-    public int GetHeight() {
-        return height;
-    }
-
-    public float GetCellSize() {
-        return cellSize;
-    }
-
-    public Vector3 GetWorldPosition(int x, int y) {
+    private Vector3 GetWorldPosition(int x, int y)
+    {
         return new Vector3(x, y) * cellSize + originPosition;
     }
 
-    private Vector2Int GetXY(Vector3 worldPosition) {
+    private Vector2Int GetXY(Vector3 worldPosition)
+    {
         int x = Mathf.FloorToInt((worldPosition - originPosition).x / cellSize);
         int y = Mathf.FloorToInt((worldPosition - originPosition).y / cellSize);
 
         return new Vector2Int(x, y);
     }
 
-    public void SetValue(int x, int y, int value)
+    private bool IsValid(Vector2Int index)
+    {
+        int x = index.x;
+        int y = index.y;
+
+        return x >= 0 && y >= 0 && x < gridArray.GetLength(0) && y < gridArray.GetLength(1);
+    }
+
+    private void SetValue(Vector2Int index, int value) => SetValue(index.x, index.y, value);
+    
+    private void SetValue(int x, int y, int value)
     {
         try
         {
-            gridArray[x, y].SetValue(value);
-        }
-        catch (ArgumentOutOfRangeException e)
-        {
-            Console.WriteLine(e);
-            throw;
-        }
-        //if (OnGridValueChanged != null) OnGridValueChanged(this, new Grid.OnGridValueChangedEventArgs { x = x, y = y });
-    }
-
-    public void SetValue(Vector3 worldPosition, int value) {
-        Vector2Int index = GetXY(worldPosition);
-        int x = index.x;
-        int y = index.y;
-        
-        if (x >= 0 && y >= 0 && x < gridArray.GetLength(0) && y < gridArray.GetLength(1))
-        {
-            SetValue(index.x, index.y, value);
-        }
-        
-    }
-
-    public int GetValue(int x, int y) {
-        try {
-            return gridArray[x, y].GetValue();
+            if (!gridArray[x, y].initial)
+            {
+                gridArray[x, y].SetValue(value);
+            }
         }
         catch (ArgumentOutOfRangeException e)
         {
@@ -110,9 +118,38 @@ public class SuguruGrid
             throw;
         }
     }
+    
+    private void SetCandidate(Vector2Int index, int value) => SetCandidate(index.x, index.y, value);
+    
+    private void SetCandidate(int x, int y, int value)
+    {
+        try
+        {
+            if (!gridArray[x, y].initial)
+            {
+                gridArray[x, y].SwitchCandidate(value);
+            }
+        }
+        catch (ArgumentOutOfRangeException e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
 
-    public int GetValue(Vector3 worldPosition) {
-        Vector2Int index = GetXY(worldPosition);
-        return GetValue(index.x, index.y);
+    private void Erase(int x, int y)
+    {
+        try
+        {
+            if (!gridArray[x, y].initial)
+            {
+                gridArray[x, y].Erase();
+            }
+        }
+        catch (ArgumentOutOfRangeException e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 }
