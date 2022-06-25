@@ -1,5 +1,3 @@
-using System;
-using JetBrains.Annotations;
 using Suguru.Utils;
 using UnityEngine;
 
@@ -17,13 +15,21 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
-        const int width = 5;
-        const int height = 7;
+        /******** Debug Vars ********/
+        const int width = 3;
+        const int height = 4;
+        var regions = new Region[3];
+        regions[0] = new Region(new[] {new Vector2(0, 0), new Vector2(1, 0), new Vector2(2, 0), new Vector2(0, 1)});
+        regions[1] = new Region(new[] {new Vector2(1, 1), new Vector2(1, 2), new Vector2(2, 1), new Vector2(2, 2), new Vector2(2, 3)});
+        regions[2] = new Region(new[] {new Vector2(0, 2), new Vector2(0, 3), new Vector2(1, 3)});
+        /****************************/
+        
         float screenUnitHeight = cam.orthographicSize * 2;
         float screenUnitWidth = screenUnitHeight * cam.aspect;
         float cellSize = Mathf.Min(screenUnitHeight * 0.7f * 0.8f / height, screenUnitWidth * 0.8f / width);
         var originPosition = new Vector3(-cellSize * width * 0.5f, -cellSize * height * 0.5f + screenUnitHeight * 0.15f);
-        grid = new SuguruGrid(width, height, cellSize, originPosition, background, mat);
+        grid = new SuguruGrid(width, height, regions);
+        grid.DrawGrid(cellSize, originPosition, background, mat);
         gridMethod = grid.SetValue;
     }
 

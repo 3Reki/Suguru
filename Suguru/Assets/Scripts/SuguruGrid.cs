@@ -6,19 +6,32 @@ using UnityEngine;
 public class SuguruGrid
 {
     private readonly Cell[,] gridArray;
-    private readonly Vector3 originPosition;
-    private readonly float cellSize;
+    private readonly Region[] regions;
     private readonly int width;
     private readonly int height;
+    private Vector3 originPosition;
+    private float cellSize;
 
-    public SuguruGrid(int width, int height, float cellSize, Vector3 originPosition, GameObject background, Material mat)
+    public SuguruGrid(int width, int height, Region[] regions)
     {
         this.width = width;
         this.height = height;
-        this.cellSize = cellSize;
-        this.originPosition = originPosition;
+        this.regions = regions;
 
         gridArray = new Cell[width, height];
+        for (int i = 0; i < gridArray.GetLength(0); i++)
+        {
+            for (int j = 0; j < gridArray.GetLength(1); j++)
+            {
+                gridArray[i, j] = new Cell();
+            }
+        }
+    }
+
+    public void DrawGrid(float cellSize, Vector3 originPosition, GameObject background, Material mat)
+    {
+        this.cellSize = cellSize;
+        this.originPosition = originPosition;
         ShowGrid(background, mat);
     }
     
@@ -67,7 +80,9 @@ public class SuguruGrid
                 textMesh = UtilsClass.CreateWorldText("", numbersGO.transform, 
                     GetWorldPosition(i, j) + new Vector3(cellSize, cellSize) * .5f, 
                     new Vector2(cellSize, cellSize), 10,  Color.black, TextAnchor.MiddleCenter, TextAlignmentOptions.Center);
-                gridArray[i, j] = new Cell(textMesh, 10);
+                
+                gridArray[i, j].textMesh = textMesh;
+                gridArray[i, j].fontSize = 10;
                 UtilsClass.DrawLine(GetWorldPosition(i, j), GetWorldPosition(i, j + 1), Color.black, mat, linesTransform);
                 UtilsClass.DrawLine(GetWorldPosition(i, j), GetWorldPosition(i + 1, j), Color.black, mat, linesTransform);
             }

@@ -1,36 +1,60 @@
-using System;
 using TMPro;
+using UnityEngine;
 
 public class Cell
 {
     public readonly bool initial;
-    private readonly bool[] candidates;
-    private readonly TextMeshPro textMesh;
-    private readonly int fontSize;
-    private int value;
 
-    public Cell(TextMeshPro textMesh, int fontSize, int value = 0, bool initial = false)
+    public TextMeshPro textMesh
     {
-        this.textMesh = textMesh;
-        this.fontSize = fontSize;
+        get
+        {
+            if (pTextMesh == null)
+            {
+                Debug.LogError("TextMesh not set.");
+            }
+
+            return pTextMesh;
+        }
+
+        set
+        {
+            pTextMesh = value;
+            
+            if (initial)
+            {
+                pTextMesh.fontStyle = FontStyles.Bold;
+            }
+        }
+    }
+
+    public int fontSize
+    {
+        get => pFontSize == 0 ? 10 : pFontSize;
+
+        set => pFontSize = value;
+    }
+
+    private readonly bool[] candidates;
+    private TextMeshPro pTextMesh;
+    private int value;
+    private int pFontSize;
+
+    public Cell(int value = 0)
+    {
         this.value = value;
-        this.initial = initial;
+        initial = value != 0;
 
         candidates = new bool[9];
         for (int i = 0; i < 9; i++)
         {
             candidates[i] = false;
         }
-        
-        if (initial)
-        {
-            textMesh.fontStyle = FontStyles.Bold;
-        }
     }
 
     public void SetValue(int v)
     {
-        if (initial) throw new Exception("Initial value can't be changed");
+        if (initial) Debug.LogError("Initial value can't be changed");
 
         value = value == v ? 0 : v;
         
@@ -39,7 +63,7 @@ public class Cell
 
     public void SwitchCandidate(int v)
     {
-        if (initial) throw new Exception("Initial value can't be changed");
+        if (initial) Debug.LogError("Initial value can't be changed");
         
         candidates[v - 1] = !candidates[v - 1];
         Show();
@@ -47,7 +71,7 @@ public class Cell
     
     public void Erase()
     {
-        if (initial) throw new Exception("Initial value can't be changed");
+        if (initial) Debug.LogError("Initial value can't be changed");
 
         value = 0;
         for (int i = 0; i < candidates.Length; i++)

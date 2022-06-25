@@ -412,6 +412,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1612185295}
     - target: {fileID: 1110035377988044165, guid: bcd5fd4774a04cf46a7471ed2d92d76a, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1110035377988044165, guid: bcd5fd4774a04cf46a7471ed2d92d76a, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnCandidateModeChange
       objectReference: {fileID: 0}
@@ -459,6 +463,42 @@ PrefabInstance:
       propertyPath: manager
       value: 
       objectReference: {fileID: 1612185295}
+    - target: {fileID: 3213617725609286371, guid: bcd5fd4774a04cf46a7471ed2d92d76a, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3213617725858730328, guid: bcd5fd4774a04cf46a7471ed2d92d76a, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3213617726164080731, guid: bcd5fd4774a04cf46a7471ed2d92d76a, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3213617726399817797, guid: bcd5fd4774a04cf46a7471ed2d92d76a, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3213617726642986149, guid: bcd5fd4774a04cf46a7471ed2d92d76a, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3213617726731426645, guid: bcd5fd4774a04cf46a7471ed2d92d76a, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3213617726950133257, guid: bcd5fd4774a04cf46a7471ed2d92d76a, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3213617727119449817, guid: bcd5fd4774a04cf46a7471ed2d92d76a, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4724879365384636542, guid: bcd5fd4774a04cf46a7471ed2d92d76a, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4930094132396504960, guid: bcd5fd4774a04cf46a7471ed2d92d76a, type: 3}
       propertyPath: manager
       value: 
